@@ -9,9 +9,7 @@ import java.util.List;
 
 @Repository
 public interface UserRepository extends JpaRepository<Usuario, Long> {
-    // Obtener usuarios por rol
     List<Usuario> findByRol(Rol rol);
 
-    // Obtener un usuario por nombre de usuario
     Usuario findByNombreUsuario(String nombreUsuario);
 }

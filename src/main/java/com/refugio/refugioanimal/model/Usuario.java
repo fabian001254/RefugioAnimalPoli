@@ -23,7 +23,6 @@ public abstract class Usuario {
     private String nombreUsuario;
     private String contrasena;
     private String nombreCompleto;
-    @Email
     private String email;
     private String telefono;
     private Rol rol;

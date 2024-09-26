@@ -32,6 +32,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     implementation 'mysql:mysql-connector-java:8.0.28'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.1'
+    implementation 'org.springframework.security:spring-security-crypto:5.6.1'
 }
 
 tasks.named('test') {
