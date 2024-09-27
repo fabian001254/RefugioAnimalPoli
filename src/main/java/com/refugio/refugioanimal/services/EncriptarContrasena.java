@@ -1,6 +1,6 @@
 package com.refugio.refugioanimal.services;
 
-import com.refugio.refugioanimal.repository.UserRepository;
+import com.refugio.refugioanimal.repository.CuidadorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 public class EncriptarContrasena {
 
     @Autowired
-    UserRepository userRepository;
+    CuidadorRepository usuarioRepository;
 
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 

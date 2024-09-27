@@ -6,5 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ControlSaludRepository extends JpaRepository<ControlSalud, Long> {
-    ControlSalud findByNombre(String nombre);
 }

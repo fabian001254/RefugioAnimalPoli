@@ -3,6 +3,7 @@ package com.refugio.refugioanimal.dto.mappers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.refugio.refugioanimal.dto.UsuarioDTO;
 import com.refugio.refugioanimal.dto.UsuarioRegisterDTO;
+import com.refugio.refugioanimal.model.Cuidador;
 import com.refugio.refugioanimal.model.Usuario;
 
 import java.util.Optional;
@@ -15,7 +16,7 @@ public class UsuarioMappers {
         return objectMapper.convertValue(usuarioRegisterDTO, Usuario.class);
     }
 
-    public UsuarioDTO usuarioToUsuarioDTO(Optional<Usuario> usuario) {
+    public UsuarioDTO usuarioToUsuarioDTO(Usuario usuario) {
         return UsuarioDTO.builder()
                 .nombreUsuario(usuario.getNombreUsuario())
                 .email(usuario.getEmail())
@@ -33,6 +34,10 @@ public class UsuarioMappers {
                 .email(usuarioRegisterDTO.getEmail())
                 .rol(usuarioRegisterDTO.getRol())
                 .build();
+    }
+
+    public Cuidador usuarioRegisterDTOToCuidador(UsuarioRegisterDTO usuarioRegisterDTO) {
+        return objectMapper.convertValue(usuarioRegisterDTO, Cuidador.class);
     }
 
 
