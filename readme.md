@@ -21,9 +21,9 @@ Bienvenido al **Refugio Animal API**, una aplicación desarrollada con Spring Bo
 ## Requisitos
 
 - **Java 17** o superior
-- **Maven** para la gestión de dependencias
+- **Gradle** para la gestión de dependencias
 - **MySQL** como base de datos
-- **Postman** o cualquier otra herramienta para probar las APIs
+- **Postman/Insomnia** o cualquier otra herramienta para probar las APIs
 
 ## Configuración del Entorno
 
@@ -138,8 +138,5 @@ Bienvenido al **Refugio Animal API**, una aplicación desarrollada con Spring Bo
 
 ## Consideraciones de Seguridad
 
-- **Encriptación de Contraseñas:** Las contraseñas deben almacenarse de forma segura utilizando algoritmos de hashing como BCrypt.
-- **Tokens de Autenticación:** Es recomendable implementar tokens JWT para manejar la autenticación y autorización de usuarios de manera segura.
-- **Validaciones de Entrada:** Asegurar que todos los datos de entrada sean validados y sanitizados para prevenir vulnerabilidades como la inyección SQL.
-
+- **Encriptación de Contraseñas:** Las contraseñas se almacenan de forma segura con bycrypt.
 ¡Gracias por utilizar el Refugio Animal API! 🐾
