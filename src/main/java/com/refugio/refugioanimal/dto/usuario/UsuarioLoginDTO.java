@@ -1,4 +1,4 @@
-package com.refugio.refugioanimal.dto;
+package com.refugio.refugioanimal.dto.usuario;
 
 import lombok.Data;
 

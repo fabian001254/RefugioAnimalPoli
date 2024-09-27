@@ -136,6 +136,41 @@ Bienvenido al **Refugio Animal API**, una aplicación desarrollada con Spring Bo
   }
   ```
 
+### Crear Animal
+
+  ```bash
+  POST http://localhost:8080/animal/crear
+  ```
+
+- **Cuerpo de la Solicitud:**
+
+  ```json
+    {
+        "especie": "Mamifero",
+        "habitat": "SALVAJE",
+        "nombre": "Animal Test",
+        "tipoDeComida": "CARNIVORO"
+    }
+  ```
+
+#### Tipos de habitat y tipo de comida
+  ```json
+    {
+        "habitat": "SALVAJE/DOMESTICO",
+        "tipoDeComida": "CARNIVORO/HERBIVORO/OMNIVORO"
+    }
+  ```
+## Respuesta de la API
+
+- **Éxito** (`201 Created`):
+
+  ```json
+  {
+    "mensaje": "Animal registrado exitosamente",
+  }
+  ```
+
+
 ## Consideraciones de Seguridad
 
 - **Encriptación de Contraseñas:** Las contraseñas se almacenan de forma segura con bycrypt.

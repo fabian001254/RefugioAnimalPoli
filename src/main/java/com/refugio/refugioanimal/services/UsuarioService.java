@@ -1,12 +1,10 @@
 package com.refugio.refugioanimal.services;
 
 import com.refugio.refugioanimal.dto.ResponseDTO;
-import com.refugio.refugioanimal.dto.UsuarioDTO;
-import com.refugio.refugioanimal.dto.UsuarioLoginDTO;
-import com.refugio.refugioanimal.dto.UsuarioRegisterDTO;
+import com.refugio.refugioanimal.dto.usuario.UsuarioLoginDTO;
+import com.refugio.refugioanimal.dto.usuario.UsuarioRegisterDTO;
 import com.refugio.refugioanimal.dto.mappers.UsuarioMappers;
 import com.refugio.refugioanimal.excepciones.NombreDeUsuarioException;
-import com.refugio.refugioanimal.model.Administrador;
 import com.refugio.refugioanimal.model.Usuario;
 import com.refugio.refugioanimal.model.enums.Rol;
 import com.refugio.refugioanimal.repository.AdministradorRepository;

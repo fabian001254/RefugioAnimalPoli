@@ -3,10 +3,7 @@ package com.refugio.refugioanimal.model;
 import com.refugio.refugioanimal.model.enums.Habitat;
 import com.refugio.refugioanimal.model.enums.TipoDeComida;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -15,6 +12,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Table(name = "animal")
 public class Animal {
     @Id

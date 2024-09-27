@@ -1,12 +1,10 @@
 package com.refugio.refugioanimal.dto.mappers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.refugio.refugioanimal.dto.UsuarioDTO;
-import com.refugio.refugioanimal.dto.UsuarioRegisterDTO;
+import com.refugio.refugioanimal.dto.usuario.UsuarioDTO;
+import com.refugio.refugioanimal.dto.usuario.UsuarioRegisterDTO;
 import com.refugio.refugioanimal.model.Cuidador;
 import com.refugio.refugioanimal.model.Usuario;
-
-import java.util.Optional;
 
 public class UsuarioMappers {
 

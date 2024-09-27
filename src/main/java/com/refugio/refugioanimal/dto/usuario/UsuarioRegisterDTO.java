@@ -1,4 +1,4 @@
-package com.refugio.refugioanimal.dto;
+package com.refugio.refugioanimal.dto.usuario;
 
 import com.refugio.refugioanimal.model.enums.Rol;
 import jakarta.validation.constraints.Email;
