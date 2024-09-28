@@ -1,6 +1,7 @@
 package com.refugio.refugioanimal.dto.mappers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.refugio.refugioanimal.dto.UsuarioDetailDTO;
 import com.refugio.refugioanimal.dto.usuario.UsuarioDTO;
 import com.refugio.refugioanimal.dto.usuario.UsuarioRegisterDTO;
 import com.refugio.refugioanimal.model.Cuidador;
@@ -36,6 +37,14 @@ public class UsuarioMappers {
 
     public Cuidador usuarioRegisterDTOToCuidador(UsuarioRegisterDTO usuarioRegisterDTO) {
         return objectMapper.convertValue(usuarioRegisterDTO, Cuidador.class);
+    }
+
+    public UsuarioDetailDTO usuarioToUsuarioDetailDTO(Usuario usuario)
+    {
+        return UsuarioDetailDTO.builder()
+                .id(usuario.getId())
+                .nombreUsuario(usuario.getNombreUsuario())
+                .build();
     }
 
 

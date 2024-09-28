@@ -3,6 +3,8 @@ package com.refugio.refugioanimal.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
+import java.util.List;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -12,4 +14,6 @@ import lombok.*;
 public class ResponseDTO {
     String mensaje;
     String error;
+    List<?> detalles;
+    String datos;
 }

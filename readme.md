@@ -171,6 +171,112 @@ Bienvenido al **Refugio Animal API**, una aplicación desarrollada con Spring Bo
   ```
 
 
+### Asignar Cuidador a Animal
+
+- **URL:** `/cuidador/asignarCuidador/{idAnimal}`
+- **Método HTTP:** `POST`
+- **Descripción:** Asigna uno o más cuidadores a un animal específico.
+- **Parámetros de Ruta:**
+    - `idAnimal`: ID del animal al que se asignarán los cuidadores.
+- **Cuerpo de la Solicitud:** JSON con la lista de IDs de los cuidadores.
+
+### Asignar Animales a Cuidador
+
+- **URL:** `/cuidador/asignarAnimales/{idCuidador}`
+- **Método HTTP:** `POST`
+- **Descripción:** Asigna uno o más animales a un cuidador específico.
+- **Parámetros de Ruta:**
+    - `idCuidador`: ID del cuidador al que se asignarán los animales.
+- **Cuerpo de la Solicitud:** JSON con la lista de IDs de los animales.
+
+## Ejemplos de Solicitudes
+
+### Asignar Cuidador a Animal
+
+- **Endpoint:**
+
+  ```
+  POST http://localhost:8080/cuidador/asignarCuidador/1
+  ```
+
+- **Cuerpo de la Solicitud:**
+
+  ```json
+  {
+    "cuidadores": [1, 2, 3]
+  }
+  ```
+
+### Asignar Animales a Cuidador
+
+- **Endpoint:**
+
+  ```
+  POST http://localhost:8080/cuidador/asignarAnimales/1
+  ```
+
+- **Cuerpo de la Solicitud:**
+
+  ```json
+  {
+    "animales": [1, 2, 3]
+  }
+  ```
+
+## Respuesta de la API
+
+### Asignar Cuidador a Animal
+
+- **Éxito** (Todos los cuidadores asignados):
+
+  ```json
+  {
+    "mensaje": "Cuidadores asignados exitosamente"
+  }
+  ```
+
+- **Éxito** (Algunos cuidadores ya estaban asignados):
+
+  ```json
+  {
+    "mensaje": "Algunos cuidadores ya estaban asignados al animal",
+    "detalles": [
+      {
+        "id": 1,
+        "nombreUsuario": "cuidador1",
+        "nombreCompleto": "Cuidador Uno",
+        "email": "cuidador1@example.com"
+      }
+    ]
+  }
+  ```
+
+### Asignar Animales a Cuidador
+
+- **Éxito** (Todos los animales asignados):
+
+  ```json
+  {
+    "mensaje": "Todos los animales fueron asignados exitosamente"
+  }
+  ```
+
+- **Éxito** (Algunos animales ya estaban asignados):
+
+  ```json
+  {
+    "mensaje": "Algunos animales ya estaban asignados al cuidador",
+    "detalles": [
+      {
+        "id": 1,
+        "nombre": "Firulais",
+        "especie": "Perro",
+        "raza": "Labrador"
+      }
+    ]
+  }
+  ```
+
 ## Consideraciones de Seguridad
 
 - **Encriptación de Contraseñas:** Las contraseñas se almacenan de forma segura con bycrypt.

@@ -1,15 +1,16 @@
 package com.refugio.refugioanimal.model;
 
-import com.refugio.refugioanimal.model.enums.Rol;
+
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Setter
+@Getter
 public class Cuidador extends Usuario {
     @ManyToMany
     @JoinTable(
@@ -19,3 +20,4 @@ public class Cuidador extends Usuario {
     )
     private List<Animal> animalesACargo;
 }
+

@@ -1,8 +1,11 @@
 package com.refugio.refugioanimal.controller;
 
+import com.refugio.refugioanimal.dto.AnimalDTO;
 import com.refugio.refugioanimal.dto.ListaDeAnimales;
 import com.refugio.refugioanimal.dto.ResponseDTO;
+import com.refugio.refugioanimal.dto.UsuarioDetailDTO;
 import com.refugio.refugioanimal.dto.usuario.ListaDeCuidadores;
+import com.refugio.refugioanimal.dto.usuario.UsuarioDTO;
 import com.refugio.refugioanimal.dto.usuario.UsuarioUpdateDTO;
 import com.refugio.refugioanimal.services.AnimalService;
 import com.refugio.refugioanimal.services.CuidadorService;
@@ -28,14 +31,29 @@ public class CuidadorControlador {
 
     @PostMapping("/asignarAnimales/{idCuidador}")
     public ResponseEntity<?> asignarAnimales(@PathVariable Long idCuidador, @RequestBody ListaDeAnimales animales) {
-        animalService.asignarAnimales(idCuidador, animales);
-        return ResponseEntity.ok().body(ResponseDTO.builder().mensaje("Animales asignados exitosamente").build());
+        List<AnimalDTO> animalesRepetidos = animalService.asignarAnimales(idCuidador, animales);
+
+        if (animalesRepetidos.isEmpty()) {
+            return ResponseEntity.ok().body(ResponseDTO.builder().mensaje("Todos los animales fueron asignados exitosamente").build());
+        } else {
+            return ResponseEntity.ok().body(ResponseDTO.builder()
+                    .mensaje("Algunos animales ya estaban asignados al cuidador")
+                    .detalles(animalesRepetidos) // Si deseas incluir los detalles de los animales repetidos
+                    .build());
+        }
     }
 
     @PostMapping("/asignarCuidador/{idAnimal}")
     public ResponseEntity<?> asignarCuidador(@PathVariable Long idAnimal, @RequestBody ListaDeCuidadores cuidadores) {
-        animalService.asignarCuidador(idAnimal, cuidadores);
-        return ResponseEntity.ok().body(ResponseDTO.builder().mensaje("Cuidadores asignados exitosamente").build());
+        List<UsuarioDetailDTO> usuariosRepetidos = animalService.asignarCuidador(idAnimal, cuidadores);
+        if (usuariosRepetidos.isEmpty()) {
+            return ResponseEntity.ok().body(ResponseDTO.builder().mensaje("Cuidadores asignados exitosamente").build());
+        } else {
+            return ResponseEntity.ok().body(ResponseDTO.builder()
+                    .mensaje("Algunos cuidadores ya estaban asignados al animal")
+                    .detalles(usuariosRepetidos)
+                    .build());
+        }
     }
 
     @PostMapping("/actualizarInformacion/{id}")
