@@ -5,6 +5,7 @@ import com.refugio.refugioanimal.model.enums.TipoDeComida;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -28,4 +29,7 @@ public class Animal {
 
     @OneToMany(mappedBy = "animal", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Imagen> fotos;
+
+    @OneToMany(mappedBy = "animal", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<RegistroSalud> registrosSalud = new ArrayList<>();
 }

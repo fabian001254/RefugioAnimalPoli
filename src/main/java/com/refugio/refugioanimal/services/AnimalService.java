@@ -34,7 +34,6 @@ public class AnimalService {
 
     UsuarioMappers usuarioMappers = new UsuarioMappers();
 
-
     public List<UsuarioDetailDTO> asignarCuidador(Long idAnimal, ListaDeCuidadores listaDeCuidadores) {
         List<Long> cuidadoresIds = listaDeCuidadores.getCuidadores();
         List<Cuidador> cuidadorList = cuidadorRepository.findAllById(cuidadoresIds);
@@ -114,6 +113,30 @@ public class AnimalService {
     public void crearAnimal(AnimalDTO animalDTO)
     {
         animalRepository.save(animalMapper.animalDTOToAnimal(animalDTO));
+    }
+
+    public List<UsuarioDTO> obtenerCuidadoresPorAanimal(Long id) {
+        Optional<Animal> animal = animalRepository.findById(id);
+
+        if (animal.isPresent()) {
+            Animal animalFind = animal.get();
+            return animalFind.getCuidadores().stream().map(usuarioMappers::usuarioToUsuarioDTO).toList();
+        }
+
+        return null;
+    }
+
+
+    public AnimalDTO obtenerAnimal(Long id)
+    {
+        Optional<Animal> animal = animalRepository.findById(id);
+
+        if(animal.isPresent())
+        {
+            return animalMapper.animalToAnimalDTO(animal.get());
+        }
+
+        return null;
     }
 
 }

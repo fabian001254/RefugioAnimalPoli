@@ -1,46 +1,45 @@
 package com.refugio.refugioanimal.model;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@Table(name = "registro_salud")
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class RegistroSalud {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "fecha", nullable = false)
     private LocalDate fecha;
-
-    @Column(name = "procedimientos_veterinarios")
     private String procedimientosVeterinarios;
-
-    @Column(name = "resultados_laboratorio")
     private String resultadosLaboratorio;
-
-    @Column(name = "recomendaciones")
     private String recomendaciones;
-
-    @Column(name = "datos_adicionales")
     private String datosAdicionales;
 
-    @ManyToOne
-    @JoinColumn(name = "animal_id", nullable = false)
-    private Animal animal;
-
-    @OneToMany(mappedBy = "registroSalud", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "registro_salud_id")
     private List<IndicadorSalud> indicadoresSalud;
 
-    @OneToMany(mappedBy = "registroSalud", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "registro_salud_id")
     private List<ControlSalud> controlesSalud;
 
-    @OneToMany(mappedBy = "registroSalud", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "registro_salud_id")
     private List<CondicionSalud> condicionesSalud;
 
-    @OneToMany(mappedBy = "registroSalud", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "registro_salud_id")
     private List<Imagen> imagenes;
+
+    @ManyToOne
+    @JoinColumn(name = "animal_id")
+    private Animal animal;
 }

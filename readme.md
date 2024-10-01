@@ -153,7 +153,7 @@ Bienvenido al **Refugio Animal API**, una aplicación desarrollada con Spring Bo
     }
   ```
 
-#### Tipos de habitat y tipo de comida
+- **Tipos de habitat y tipo de comida**
   ```json
     {
         "habitat": "SALVAJE/DOMESTICO",
@@ -196,7 +196,7 @@ Bienvenido al **Refugio Animal API**, una aplicación desarrollada con Spring Bo
 - **Endpoint:**
 
   ```
-  POST http://localhost:8080/cuidador/asignarCuidador/1
+  POST http://localhost:8080/animale/asignarCuidador/1
   ```
 
 - **Cuerpo de la Solicitud:**
@@ -276,6 +276,62 @@ Bienvenido al **Refugio Animal API**, una aplicación desarrollada con Spring Bo
     ]
   }
   ```
+
+### Obtener cuidadores por animal
+
+ ```
+  GET http://localhost:8080/cuidador/obtenerAnimalesACargo/{id}
+  ```
+- **Parámetros de Ruta:**
+- `id`: ID del cuidador.
+
+### Respuesta de la API
+  ```json
+  {
+    "mensaje": "Animales obtenidos exitosamente",
+    "detalles": [
+      {
+        "especie": "Mamifero",
+        "habitat": "SALVAJE",
+        "nombre": "Test",
+        "tipoDeComida": "CARNIVORO"
+      },
+      {
+        "especie": "Mamifero",
+        "habitat": "SALVAJE",
+        "nombre": "Test1",
+        "tipoDeComida": "CARNIVORO"
+      }
+    ]
+  }
+  ```
+
+
+### Obtener animales por cuidador
+
+ ```
+  GET http://localhost:8080/animal/obtenerCuidadorACargo/{id}
+  ```
+- **Parámetros de Ruta:**
+- `id`: ID del animal.
+
+### Respuesta de la API
+  ```json
+  {
+    "mensaje": "Cuidadores obtenidos exitosamente",
+    "detalles": [
+      {
+        "nombreUsuario": "Test",
+        "email": "test@test.com",
+        "rol": "CUIDADOR"
+      }
+    ]
+  }
+ ```
+
+
+
+
 
 ## Consideraciones de Seguridad
 
