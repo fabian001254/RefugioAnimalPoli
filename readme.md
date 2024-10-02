@@ -329,7 +329,201 @@ Bienvenido al **Refugio Animal API**, una aplicación desarrollada con Spring Bo
   }
  ```
 
+### Crear registro de registroSalud
 
+ ```
+  POST http://localhost:8080/registroSalud/crear
+  ```
+
+- **Cuerpo de la Solicitud:**
+```json
+    {
+      "fecha": "2023-10-01",
+      "procedimientosVeterinarios": "Procedimiento X",
+      "resultadosLaboratorio": "Resultado Y",
+      "recomendaciones": "Recomendación Z",
+      "datosAdicionales": "Datos adicionales",
+      "indicadoresSalud": [
+        {
+          "fecha": "2023-10-01",
+          "peso": 12.5,
+          "otrosIndicadores": "Indicador A",
+          "vacunas": [
+            {
+              "nombre": "Vacuna A",
+              "fechaAdministrada": "2023-09-01",
+              "proximaFecha": "2024-09-01"
+            }
+          ],
+          "alergias": [
+            {
+              "alergeno": "Test",
+              "severidad": "test",
+              "notas": "aaaaa"
+            }
+          ],
+          "medicamentos": [
+            {
+              "nombre": "Medicamento A",
+              "dosis": "10mg"
+            }
+          ]
+        }
+      ],
+      "controlesSalud": [
+        {
+          "fecha": "2023-10-01",
+          "nombreProfesional": "Dr. Smith",
+          "especialidad": "Veterinario",
+          "observaciones": "Observación A"
+        }
+      ],
+      "condicionesSalud": [
+        {
+          "fecha": "2023-10-01",
+          "diagnostico": "Diagnostico A",          
+          "evolucion": "Evolución A",            
+          "tratamiento": "Tratamiento A"           
+        }
+      ],
+      "imagenes": [
+        {
+          "url": "http://example.com/imagen1.jpg",
+          "descripcion": "Descripción de la imagen 1"
+        }
+      ],
+      "animalId": 1
+    }
+```
+
+- **Dato adicional **
+- Los datos adicionales son opcionales, por lo que se pueden omitir en el cuerpo de la solicitud. (campo "datosAdicionales", "imagenes", "condicionesSalud", "controlesSalud" y "vacunas")
+
+### Respuesta de la API
+- **Éxito** :
+  ```json
+  {
+    "mensaje": "Registro de salud creado exitosamente",
+  }
+  ```
+- **Fallo** (`400 Bad Request`):
+  ```json
+  {
+    "error": "El animal con ID 1 no existe"
+  }
+  ```
+### Obtener registro de registroSalud
+     ```
+    GET http://localhost:8080/registroSalud/obtener/{id}
+    ```
+
+- **Parámetros de Ruta:**
+- `id`: ID del registro de salud.
+
+### Respuesta de la API
+  ```json
+    {
+      "detalles": [
+        {
+          "fecha": "2023-10-01",
+          "procedimientosVeterinarios": "Procedimiento X",
+          "resultadosLaboratorio": "Resultado Y",
+          "recomendaciones": "Recomendación Z",
+          "datosAdicionales": "Datos adicionales",
+          "indicadoresSalud": [
+            {
+              "fecha": "2023-10-01",
+              "peso": 12.5,
+              "otrosIndicadores": "Indicador A",
+              "vacunas": [
+                {
+                  "nombre": "Vacuna A",
+                  "fechaAdministrada": "2023-09-01",
+                  "proximaFecha": "2024-09-01"
+                }
+              ],
+              "alergias": [],
+              "medicamentos": [
+                {
+                  "nombre": "Medicamento A",
+                  "dosis": "10mg"
+                }
+              ]
+            }
+          ],
+          "controlesSalud": [
+            {
+              "fecha": "2023-10-01",
+              "nombreProfesional": "Dr. Smith",
+              "especialidad": "Veterinario",
+              "observaciones": "Observación A"
+            }
+          ],
+          "condicionesSalud": [
+            {
+              "fecha": "2023-10-01",
+              "diagnostico": "Diagnostico A",
+              "evolucion": "Evolución A",
+              "tratamiento": "Tratamiento A"
+            }
+          ],
+          "imagenes": [
+            {
+              "url": "http://example.com/imagen1.jpg",
+              "descripcion": "Descripción de la imagen 1"
+            }
+          ],
+          "animalId": 1
+        },
+        {
+          "fecha": "2023-10-01",
+          "procedimientosVeterinarios": "Procedimiento X",
+          "resultadosLaboratorio": "Resultado Y",
+          "recomendaciones": "Recomendación Z",
+          "datosAdicionales": "Datos adicionales",
+          "indicadoresSalud": [
+            {
+              "fecha": "2023-10-01",
+              "peso": 12.5,
+              "otrosIndicadores": "Indicador A",
+              "vacunas": [
+                {
+                  "nombre": "Vacuna A",
+                  "fechaAdministrada": "2023-09-01",
+                  "proximaFecha": "2024-09-01"
+                }
+              ],
+              "alergias": [],
+              "medicamentos": [
+                {
+                  "nombre": "Medicamento A",
+                  "dosis": "10mg"
+                }
+              ]
+            }
+          ],
+          "controlesSalud": [
+            {
+              "fecha": "2023-10-01",
+              "nombreProfesional": "Dr. Smith",
+              "especialidad": "Veterinario",
+              "observaciones": "Observación A"
+            }
+          ],
+          "condicionesSalud": [
+            {
+              "fecha": "2023-10-01",
+              "diagnostico": "Diagnostico A",
+              "evolucion": "Evolución A",
+              "tratamiento": "Tratamiento A"
+            }
+          ],
+          "imagenes": [],
+          "animalId": 1
+        }
+      ]
+    }
+  ```
 
 
 
