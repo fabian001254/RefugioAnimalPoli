@@ -396,7 +396,7 @@ Bienvenido al **Refugio Animal API**, una aplicación desarrollada con Spring Bo
     }
 ```
 
-- **Dato adicional **
+-- **Dato adicional** (`400 Bad Request`):
 - Los datos adicionales son opcionales, por lo que se pueden omitir en el cuerpo de la solicitud. (campo "datosAdicionales", "imagenes", "condicionesSalud", "controlesSalud" y "vacunas")
 
 ### Respuesta de la API
