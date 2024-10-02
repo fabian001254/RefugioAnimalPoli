@@ -413,9 +413,9 @@ Bienvenido al **Refugio Animal API**, una aplicación desarrollada con Spring Bo
   }
   ```
 ### Obtener registro de registroSalud
-     ```
+
     GET http://localhost:8080/registroSalud/obtener/{id}
-    ```
+
 
 - **Parámetros de Ruta:**
 - `id`: ID del registro de salud.
