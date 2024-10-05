@@ -22,7 +22,6 @@ public class ResponseDTO {
     UsuarioDTO usuario;
     String datos;
     RegistroSaludDTO registroSalud;
-    UsuarioDTO usuario;
     ListaAnimales listaDeAnimales;
     ListaCuidadores listaDeCuidadores;
 }

@@ -60,16 +60,6 @@ public class CuidadorControlador {
         }
     }
 
-    @GetMapping("/obtenerAnimalesACargo/{id}")
-    public ResponseEntity<?> obtenerAnimalesACargo(@PathVariable Long id) {
-        List<AnimalDTO> animalesDTO = cuidadorService.obtenerAnimalesACargo(id);
-        if (animalesDTO != null) {
-            return ResponseEntity.ok().body(ResponseDTO.builder().mensaje("Animales obtenidos exitosamente").detalles(animalesDTO).build());
-        } else {
-            return ResponseEntity.ok().body(ResponseDTO.builder().mensaje("Cuidador no encontrado").build());
-        }
-    }
-
     @GetMapping("{id}/animales")
     public ResponseEntity<?> obtenerAnimales(@PathVariable Long id) {
         ListaAnimales listaDeAnimales = cuidadorService.obtenerListaDeAnimales(id);

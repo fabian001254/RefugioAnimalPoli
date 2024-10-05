@@ -122,14 +122,9 @@ public class AnimalService {
 
 
     public void crearAnimal(AnimalDTO animalDTO) {
-        // Mapea el DTO al objeto Animal
         Animal animal = animalMapper.animalDTOToAnimal(animalDTO);
-
-        // Asigna una lista de imágenes aleatorias al animal
         List<Imagen> imagenesAleatorias = generarImagenesAleatorias(animal);
         animal.setFotos(imagenesAleatorias);
-
-        // Guarda el animal en el repositorio
         animalRepository.save(animal);
     }
 
@@ -182,31 +177,6 @@ public class AnimalService {
                     return listaDeCuidadores;
                 })
                 .orElseThrow(() -> new EntityNotFoundException("Cuidador con ID " + id + " no encontrado"));
-    }
-
-
-    public List<UsuarioDTO> obtenerCuidadoresPorAanimal(Long id) {
-        Optional<Animal> animal = animalRepository.findById(id);
-
-        if (animal.isPresent()) {
-            Animal animalFind = animal.get();
-            return animalFind.getCuidadores().stream().map(usuarioMappers::usuarioToUsuarioDTO).toList();
-        }
-
-        return null;
-    }
-
-
-    public AnimalDTO obtenerAnimal(Long id)
-    {
-        Optional<Animal> animal = animalRepository.findById(id);
-
-        if(animal.isPresent())
-        {
-            return animalMapper.animalToAnimalDTO(animal.get());
-        }
-
-        return null;
     }
 
 }

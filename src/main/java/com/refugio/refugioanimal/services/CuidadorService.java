@@ -27,8 +27,6 @@ public class CuidadorService {
 
     AnimalMapper animalMapper = new AnimalMapper();
 
-    AnimalMapper animalMapper = new AnimalMapper();
-
     UsuarioMappers usuarioMappers = new UsuarioMappers();
 
     public UsuarioDTO actualizarInformacion(Long id,UsuarioUpdateDTO usuarioDTO)
@@ -60,21 +58,6 @@ public class CuidadorService {
 
         return null;
     }
-
-
-    public List<AnimalDTO> obtenerAnimalesACargo(Long id)
-    {
-        Optional<Cuidador> usuario = cuidadorRepository.findById(id);
-
-        if(usuario.isPresent())
-        {
-            Cuidador cuidador = usuario.get();
-            return cuidador.getAnimalesACargo().stream().map(animalMapper::animalToAnimalDTO).toList();
-        }
-
-        return null;
-    }
-
 
 
     public ListaAnimales obtenerListaDeAnimales(Long id) {
