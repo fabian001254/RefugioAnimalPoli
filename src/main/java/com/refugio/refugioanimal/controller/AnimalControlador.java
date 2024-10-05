@@ -29,6 +29,7 @@ public class AnimalControlador {
         return ResponseEntity.ok().body(ResponseDTO.builder().mensaje("Animal creado exitosamente").build());
     }
 
+
     @GetMapping("{id}/cuidadores")
     public ResponseEntity<?> obtenerCuidadores(@PathVariable Long id) {
         ListaCuidadores listaDeCuidadores = animalService.obtenerListaDeCuidadores(id);
