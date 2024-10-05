@@ -1,6 +1,6 @@
 package com.refugio.refugioanimal.dto;
 
-import com.refugio.refugioanimal.model.Animal;
+import com.refugio.refugioanimal.dto.usuario.CuidadorDTO;
 import lombok.*;
 
 import java.util.List;
@@ -11,6 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ListaDeAnimales {
-    List<Long> animales;
+public class ListaCuidadores {
+    List<CuidadorDTO> listaCuidadores;
+
 }

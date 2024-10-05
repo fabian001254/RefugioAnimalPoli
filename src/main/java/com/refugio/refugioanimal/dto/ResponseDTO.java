@@ -2,6 +2,8 @@ package com.refugio.refugioanimal.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.refugio.refugioanimal.dto.usuario.UsuarioDTO;
+import com.refugio.refugioanimal.dto.usuario.ListaAnimales;
+import com.refugio.refugioanimal.dto.usuario.UsuarioDTO;
 import lombok.*;
 
 import java.util.List;
@@ -20,4 +22,7 @@ public class ResponseDTO {
     UsuarioDTO usuario;
     String datos;
     RegistroSaludDTO registroSalud;
+    UsuarioDTO usuario;
+    ListaAnimales listaDeAnimales;
+    ListaCuidadores listaDeCuidadores;
 }

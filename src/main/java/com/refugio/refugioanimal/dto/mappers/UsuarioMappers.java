@@ -2,8 +2,10 @@ package com.refugio.refugioanimal.dto.mappers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.refugio.refugioanimal.dto.UsuarioDetailDTO;
+import com.refugio.refugioanimal.dto.usuario.CuidadorDTO;
 import com.refugio.refugioanimal.dto.usuario.UsuarioDTO;
 import com.refugio.refugioanimal.dto.usuario.UsuarioRegisterDTO;
+import com.refugio.refugioanimal.model.Administrador;
 import com.refugio.refugioanimal.model.Cuidador;
 import com.refugio.refugioanimal.model.Usuario;
 
@@ -20,6 +22,7 @@ public class UsuarioMappers {
                 .nombreUsuario(usuario.getNombreUsuario())
                 .email(usuario.getEmail())
                 .rol(usuario.getRol())
+                .id(usuario.getId())
                 .build();
     }
 
@@ -39,11 +42,24 @@ public class UsuarioMappers {
         return objectMapper.convertValue(usuarioRegisterDTO, Cuidador.class);
     }
 
+    public Administrador usuarioRegisterDTOToAdministrador(UsuarioRegisterDTO usuarioRegisterDTO) {
+        return objectMapper.convertValue(usuarioRegisterDTO, Administrador.class);
+    }
+
     public UsuarioDetailDTO usuarioToUsuarioDetailDTO(Usuario usuario)
     {
         return UsuarioDetailDTO.builder()
                 .id(usuario.getId())
                 .nombreUsuario(usuario.getNombreUsuario())
+                .build();
+    }
+
+    public CuidadorDTO cuidadorToUsuarioDTO(Cuidador usuario) {
+        return CuidadorDTO.builder()
+                .nombreUsuario(usuario.getNombreUsuario())
+                .email(usuario.getEmail())
+                .rol(usuario.getRol())
+                .id(usuario.getId())
                 .build();
     }
 

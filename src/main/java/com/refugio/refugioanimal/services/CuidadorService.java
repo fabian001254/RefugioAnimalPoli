@@ -2,6 +2,9 @@ package com.refugio.refugioanimal.services;
 
 import com.refugio.refugioanimal.dto.AnimalDTO;
 import com.refugio.refugioanimal.dto.mappers.AnimalMapper;
+import com.refugio.refugioanimal.dto.ListaDeAnimales;
+import com.refugio.refugioanimal.dto.mappers.AnimalMapper;
+import com.refugio.refugioanimal.dto.usuario.ListaAnimales;
 import com.refugio.refugioanimal.dto.usuario.UsuarioDTO;
 import com.refugio.refugioanimal.dto.usuario.UsuarioUpdateDTO;
 import com.refugio.refugioanimal.dto.mappers.UsuarioMappers;
@@ -9,6 +12,7 @@ import com.refugio.refugioanimal.model.Cuidador;
 import com.refugio.refugioanimal.model.RegistroSalud;
 import com.refugio.refugioanimal.repository.CuidadorRepository;
 import static java.util.stream.Collectors.toList;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +24,8 @@ public class CuidadorService {
 
     @Autowired
     private CuidadorRepository cuidadorRepository;
+
+    AnimalMapper animalMapper = new AnimalMapper();
 
     AnimalMapper animalMapper = new AnimalMapper();
 
@@ -69,6 +75,19 @@ public class CuidadorService {
         return null;
     }
 
+
+
+    public ListaAnimales obtenerListaDeAnimales(Long id) {
+        return cuidadorRepository.findById(id)
+                .map(cuidador -> {
+                    ListaAnimales listaAnimales = new ListaAnimales();
+                    listaAnimales.setAnimalList(
+                            cuidador.getAnimalesACargo().stream().map(animalMapper::animalToAnimalDTOList).toList()
+                    );
+                    return listaAnimales;
+                })
+                .orElseThrow(() -> new EntityNotFoundException("Cuidador con ID " + id + " no encontrado"));
+    }
 
 
 }

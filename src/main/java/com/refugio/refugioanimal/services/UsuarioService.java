@@ -1,6 +1,8 @@
 package com.refugio.refugioanimal.services;
 
+import com.refugio.refugioanimal.dto.ListaDeAnimales;
 import com.refugio.refugioanimal.dto.ResponseDTO;
+import com.refugio.refugioanimal.dto.usuario.UsuarioDTO;
 import com.refugio.refugioanimal.dto.usuario.UsuarioLoginDTO;
 import com.refugio.refugioanimal.dto.usuario.UsuarioRegisterDTO;
 import com.refugio.refugioanimal.dto.mappers.UsuarioMappers;
@@ -36,7 +38,7 @@ public class UsuarioService {
 
         if(usuarioDTO.getRol().equals(Rol.ADMINISTRADOR))
         {
-            usuarioMappers.usuarioRegisterDTOToCuidador(usuarioDTO);
+            administradorRepository.save(usuarioMappers.usuarioRegisterDTOToAdministrador(usuarioDTO));
         }
         else {
             cuidadorRepository.save(usuarioMappers.usuarioRegisterDTOToCuidador(usuarioDTO));
@@ -45,12 +47,15 @@ public class UsuarioService {
         return ResponseDTO.builder().mensaje("Usuario registrado exitosamente").build();
     }
 
-    public boolean iniciarSesion(UsuarioLoginDTO usuarioLoginDTO) {
+    public UsuarioDTO iniciarSesion(UsuarioLoginDTO usuarioLoginDTO) {
         Optional<Usuario> usuarioOpt = Optional.ofNullable(cuidadorRepository.findByNombreUsuario(usuarioLoginDTO.getNombreUsuario()));
         if (usuarioOpt.isPresent()) {
             Usuario usuario = usuarioOpt.get();
-            return encriptarContrasena.matchesPassword(usuarioLoginDTO.getContrasena(), usuario.getContrasena());
+            if(encriptarContrasena.matchesPassword(usuarioLoginDTO.getContrasena(), usuario.getContrasena()))
+            {
+                return usuarioMappers.usuarioToUsuarioDTO(usuario);
+            }
         }
-        return false;
+        return null;
     }
 }

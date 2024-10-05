@@ -3,6 +3,9 @@ package com.refugio.refugioanimal.controller;
 import com.refugio.refugioanimal.dto.AnimalDTO;
 import com.refugio.refugioanimal.dto.ListaDeAnimales;
 import com.refugio.refugioanimal.dto.ResponseDTO;
+import com.refugio.refugioanimal.dto.UsuarioDetailDTO;
+import com.refugio.refugioanimal.dto.usuario.ListaAnimales;
+import com.refugio.refugioanimal.dto.usuario.ListaDeCuidadores;
 import com.refugio.refugioanimal.dto.usuario.UsuarioDTO;
 import com.refugio.refugioanimal.dto.usuario.UsuarioUpdateDTO;
 import com.refugio.refugioanimal.services.AnimalService;
@@ -65,6 +68,17 @@ public class CuidadorControlador {
         } else {
             return ResponseEntity.ok().body(ResponseDTO.builder().mensaje("Cuidador no encontrado").build());
         }
+    }
+
+    @GetMapping("{id}/animales")
+    public ResponseEntity<?> obtenerAnimales(@PathVariable Long id) {
+        ListaAnimales listaDeAnimales = cuidadorService.obtenerListaDeAnimales(id);
+        if(listaDeAnimales != null) {
+            return ResponseEntity.ok()
+                    .body(ResponseDTO.builder()
+                                    .listaDeAnimales(listaDeAnimales).build());
+        }
+        return ResponseEntity.notFound().build();
     }
 
 }

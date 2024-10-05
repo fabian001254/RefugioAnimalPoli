@@ -1,10 +1,12 @@
 package com.refugio.refugioanimal.services;
 
 import com.refugio.refugioanimal.dto.AnimalDTO;
+import com.refugio.refugioanimal.dto.ListaCuidadores;
 import com.refugio.refugioanimal.dto.ListaDeAnimales;
 import com.refugio.refugioanimal.dto.UsuarioDetailDTO;
 import com.refugio.refugioanimal.dto.mappers.AnimalMapper;
 import com.refugio.refugioanimal.dto.mappers.UsuarioMappers;
+import com.refugio.refugioanimal.dto.usuario.ListaAnimales;
 import com.refugio.refugioanimal.dto.usuario.ListaDeCuidadores;
 import com.refugio.refugioanimal.dto.usuario.UsuarioDTO;
 import com.refugio.refugioanimal.excepciones.AnimalesNoEncontradoExeption;
@@ -12,14 +14,22 @@ import com.refugio.refugioanimal.excepciones.CuidadorNoEncontradoException;
 import com.refugio.refugioanimal.excepciones.UsuariosNoEncontradoExeption;
 import com.refugio.refugioanimal.model.Animal;
 import com.refugio.refugioanimal.model.Cuidador;
+import com.refugio.refugioanimal.model.Imagen;
 import com.refugio.refugioanimal.repository.AnimalRepository;
 import com.refugio.refugioanimal.repository.CuidadorRepository;
+import jakarta.persistence.EntityNotFoundException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class AnimalService {
@@ -31,6 +41,7 @@ public class AnimalService {
     private CuidadorRepository cuidadorRepository;
 
     AnimalMapper animalMapper = new AnimalMapper();
+    UsuarioMappers usuarioMapper = new UsuarioMappers();
 
     UsuarioMappers usuarioMappers = new UsuarioMappers();
 
@@ -110,10 +121,69 @@ public class AnimalService {
     }
 
 
-    public void crearAnimal(AnimalDTO animalDTO)
-    {
-        animalRepository.save(animalMapper.animalDTOToAnimal(animalDTO));
+    public void crearAnimal(AnimalDTO animalDTO) {
+        // Mapea el DTO al objeto Animal
+        Animal animal = animalMapper.animalDTOToAnimal(animalDTO);
+
+        // Asigna una lista de imágenes aleatorias al animal
+        List<Imagen> imagenesAleatorias = generarImagenesAleatorias(animal);
+        animal.setFotos(imagenesAleatorias);
+
+        // Guarda el animal en el repositorio
+        animalRepository.save(animal);
     }
+
+    private List<Imagen> generarImagenesAleatorias(Animal animal) {
+        List<Imagen> imagenes = new ArrayList<>();
+        Random random = new Random();
+        int cantidadImagenes = random.nextInt(5) + 1; // Genera entre 1 y 5 imágenes aleatorias
+
+        for (int i = 0; i < cantidadImagenes; i++) {
+            try {
+                URL url = new URL("https://random.dog/woof.json");
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("GET");
+
+                BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                String inputLine;
+                StringBuilder content = new StringBuilder();
+                while ((inputLine = in.readLine()) != null) {
+                    content.append(inputLine);
+                }
+                in.close();
+                conn.disconnect();
+
+                // Parsear la respuesta JSON para obtener la URL de la imagen
+                String jsonString = content.toString();
+                String imageUrl = new JSONObject(jsonString).getString("url");
+
+                // Crear la imagen y asociarla al animal
+                Imagen imagen = new Imagen();
+                imagen.setUrl(imageUrl);
+                imagen.setDescripcion("Imagen aleatoria de perro " + (i + 1));
+                imagen.setAnimal(animal);
+
+                imagenes.add(imagen);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return imagenes;
+    }
+
+    public ListaCuidadores obtenerListaDeCuidadores(Long id) {
+        return animalRepository.findById(id)
+                .map(cuidador -> {
+                    ListaCuidadores listaDeCuidadores = new ListaCuidadores();
+                    listaDeCuidadores.setListaCuidadores(
+                            cuidador.getCuidadores().stream().map(usuarioMapper::cuidadorToUsuarioDTO).toList()
+                    );
+                    return listaDeCuidadores;
+                })
+                .orElseThrow(() -> new EntityNotFoundException("Cuidador con ID " + id + " no encontrado"));
+    }
+
 
     public List<UsuarioDTO> obtenerCuidadoresPorAanimal(Long id) {
         Optional<Animal> animal = animalRepository.findById(id);

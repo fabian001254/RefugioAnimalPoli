@@ -1,8 +1,10 @@
 package com.refugio.refugioanimal.controller;
 
 import com.refugio.refugioanimal.dto.ResponseDTO;
+import com.refugio.refugioanimal.dto.usuario.UsuarioDTO;
 import com.refugio.refugioanimal.dto.usuario.UsuarioLoginDTO;
 import com.refugio.refugioanimal.dto.usuario.UsuarioRegisterDTO;
+import com.refugio.refugioanimal.model.enums.Rol;
 import com.refugio.refugioanimal.services.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +32,23 @@ public class UsuarioControlador {
     }
 
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity<?> iniciarSesion(@RequestBody UsuarioLoginDTO usuario)
     {
-        if(usuarioService.iniciarSesion(usuario)) {
-            return ResponseEntity.noContent().build();
+        UsuarioDTO usuarioDTO = usuarioService.iniciarSesion(usuario);
+        if(usuarioDTO != null) {
+            return ResponseEntity.ok().body(ResponseDTO.builder().usuario(usuarioDTO).build()) ;
+        }
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ResponseDTO.builder().error("Credenciales inválidas").build());
+    }
+
+    @GetMapping("/perfil")
+    public ResponseEntity<?> getPerfil(@RequestBody UsuarioLoginDTO usuario)
+    {
+        UsuarioDTO usuarioDTO = usuarioService.iniciarSesion(usuario);
+        if(usuarioDTO != null) {
+            return ResponseEntity.ok().body(ResponseDTO.builder().usuario(usuarioDTO).build()) ;
         }
 
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ResponseDTO.builder().error("Credenciales inválidas").build());

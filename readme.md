@@ -125,8 +125,18 @@ Bienvenido al **Refugio Animal API**, una aplicación desarrollada con Spring Bo
 
 ### Iniciar Sesión
 
-- **Éxito** (`204 No Content`):
-    - No se retorna ningún contenido en el cuerpo de la respuesta.
+- **Éxito** (`200 Ok`):
+
+ ```json
+    {
+      "usuario": {
+        "nombreUsuario": "Test1",
+        "email": "test@test.com",
+        "rol": "CUIDADOR",
+        "id": 1
+      }
+    }
+  ```
 
 - **Fallo** (`401 Unauthorized`):
 
@@ -166,7 +176,7 @@ Bienvenido al **Refugio Animal API**, una aplicación desarrollada con Spring Bo
 
   ```json
   {
-    "mensaje": "Animal registrado exitosamente",
+    "mensaje": "Animal registrado exitosamente"
   }
   ```
 
@@ -523,6 +533,92 @@ Bienvenido al **Refugio Animal API**, una aplicación desarrollada con Spring Bo
         }
       ]
     }
+  ```
+
+
+
+### Obtener Animales Por Cuidador
+
+- **Endpoint:**
+
+  ```
+  GET http://localhost:8080/cuidador/{idCuidador}/animales
+  ```
+
+- **Parámetros de Ruta:**
+  - `idCuidador`: ID del cuidador para buscar sus animales.
+
+
+## Respuesta de la API
+
+- **Éxito** (Todos los animales asignados):
+
+  ```json
+    {
+      "listaDeAnimales": {
+          "animalList": [
+                {
+                  "id": 7,
+                  "especie": "Mamifero",
+                  "habitat": "SALVAJE",
+                  "nombre": "Animal Test 2",
+                  "tipoDeComida": "CARNIVORO",
+                  "listaDeAnimales": null,
+                  "urlImagen": "https://picsum.photos/300/200?random=466"
+                },
+                {
+                  "id": 8,
+                  "especie": "Mamifero",
+                  "habitat": "SALVAJE",
+                  "nombre": "Animal Test 777",
+                  "tipoDeComida": "CARNIVORO",
+                  "listaDeAnimales": null,
+                  "urlImagen": "https://picsum.photos/300/200?random=570"
+                },
+                {
+                  "id": 9,
+                  "especie": "Mamifero",
+                  "habitat": "SALVAJE",
+                  "nombre": "Animal Test 777",
+                  "tipoDeComida": "CARNIVORO",
+                  "listaDeAnimales": null,
+                  "urlImagen": "https://random.dog/c8b7a017-8966-4f84-b2c6-609a739d833e.jpg"
+                }
+          ]
+      }
+    }
+  ```
+
+
+### Obtener Cuidadores Por Animal
+
+- **Endpoint:**
+
+  ```
+  GET http://localhost:8080/animal/{idAnimal}/cuidadores
+  ```
+
+- **Parámetros de Ruta:**
+  - `idAnimal`: ID del animal para buscar sus cuidadores.
+
+
+## Respuesta de la API
+
+- **Éxito** (Todos los cuidadores asignados):
+
+  ```json
+      {
+      "listaDeCuidadores": {
+          "listaCuidadores": [
+              {
+                  "nombreUsuario": "Test1",
+                  "email": "test@test.com",
+                  "rol": "CUIDADOR",
+                  "id": 1
+              }
+          ]
+        }
+      }
   ```
 
 
